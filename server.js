@@ -5,9 +5,9 @@ dotenv.config();
 
 import connect from "./db/connect.js";
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+// app.use("/chefs");
+// app.use("/dishes");
+// app.use("/restaurants");
 
 const port = process.env.PORT || 3000;
 
