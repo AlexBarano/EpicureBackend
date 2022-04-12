@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const connect = (url) => {
-  mongoose.connect(url);
+const connect = async (url) => {
+  await mongoose.connect(url);
 };
 
 export default connect;
