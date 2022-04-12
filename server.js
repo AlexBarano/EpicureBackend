@@ -4,9 +4,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import connect from "./db/connect.js";
-import { chefsRouter } from "./routes/api/v1/chefsRoutes.js";
-import { restaurantsRouter } from "./routes/api/v1/restaurantsRoutes.js";
-import { dishesRouter } from "./routes/api/v1/dishesRoutes.js";
+import chefsRouter from "./routes/api/v1/chefsRoutes.js";
+import restaurantsRouter from "./routes/api/v1/restaurantsRoutes.js";
+import dishesRouter from "./routes/api/v1/dishesRoutes.js";
 
 app.use("/chefs", chefsRouter);
 app.use("/dishes", dishesRouter);
