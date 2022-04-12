@@ -8,4 +8,5 @@ const RestaurantSchema = new Schema({
   chef: { type: Schema.Types.ObjectId },
   dishes: { type: [Schema.Types.ObjectId] },
 });
+
 export default mongoose.model("restaurant", RestaurantSchema);

@@ -4,11 +4,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import connect from "./db/connect.js";
-import apiRouter from "./routes/api/index.js";
+import v1Router from "./routes/api/index.js";
 
 app.use(express.json());
 
-app.use("/api", apiRouter);
+app.use("/v1", v1Router);
 
 const port = process.env.PORT || 3000;
 

@@ -1,12 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-import chefsRouter from "./chefsRoutes.js";
-import restaurantsRouter from "./restaurantsRoutes.js";
-import dishesRouter from "./dishesRoutes.js";
+import apiRouter from "./v1/index.js";
 
-router.use("/chefs", chefsRouter);
-router.use("/dishes", dishesRouter);
-router.use("/restaurants", restaurantsRouter);
+router.use("/api", apiRouter);
 
 export default router;

@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import * as dishesController from "../../controllers/dishesController.js";
+import * as dishesController from "../../../controllers/dishesController.js";
 
 router.get("/", dishesController.getDishes);
 router.put("/", dishesController.createDish);
