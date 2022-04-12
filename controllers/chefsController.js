@@ -21,7 +21,6 @@ export const createChef = async (req, res) => {
 export const deleteChef = async (req, res) => {
   const idToDelete = req.params.id;
   const chef = await chefSchema.findOneAndRemove(idToDelete);
-  console.log(chef);
   res.status(200).json({ msg: `Deleted chef: ${chef.name}` });
 };
 
