@@ -1,7 +1,7 @@
 import dishSchema from "../models/dish.js";
 
 /*
-  ==== fix these functions: ====
+  ==== fix in these functions: ====
   check if params exists
   search before uploading
   try catch with schema operations
