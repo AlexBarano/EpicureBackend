@@ -1,9 +1,8 @@
 import express from "express";
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  // change this after to controller func
-  res.send("get all dishes route");
-});
+import * as dishesController from "../../../controllers/dishesController.js";
+
+router.get("/", dishesController.getDishes);
 
 export { router as dishesRouter };
