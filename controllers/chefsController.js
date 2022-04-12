@@ -6,7 +6,7 @@ import * as chefsHandler from "../handlers/chefsHandler.js";
   search before uploading
   ****try catch with schema operations
   ****status codes with good and bad operations 
-  add handlers here
+  ****add handlers here
 */
 
 export const getChefs = async (req, res) => {
