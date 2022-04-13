@@ -7,7 +7,6 @@ import connect from "./db/connect.js";
 import v1Router from "./routes/api/index.js";
 
 app.use(express.json());
-
 app.use("/v1", v1Router);
 
 const port = process.env.PORT || 3000;
