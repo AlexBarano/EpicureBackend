@@ -3,7 +3,7 @@ import * as restaurantsHandler from "../handlers/restaurantsHandler.js";
 /*
   ==== fix in these functions: ====
   check if params exists
-  search before uploading
+  ****search before uploading
   ****try catch with schema operations
   ****status codes with good and bad operations 
   ****add handlers here
@@ -11,7 +11,7 @@ import * as restaurantsHandler from "../handlers/restaurantsHandler.js";
 
 export const getRestaurants = async (req, res) => {
   try {
-    const allRestaurants = restaurantsHandler.getRestaurants();
+    const allRestaurants = await restaurantsHandler.getRestaurants();
     res.status(200).json({ restaurants: allRestaurants });
   } catch (error) {
     res.status(500).json({ msg: "Error getting all the restaurants", error });

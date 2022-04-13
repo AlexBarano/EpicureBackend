@@ -3,7 +3,7 @@ import * as dishesHandler from "../handlers/dishesHandler.js";
 /*
   ==== fix in these functions: ====
   check if params exists
-  search before uploading
+  ****search before uploading
   ****try catch with schema operations
   ****status codes with good and bad operations 
   ****add handlers here
