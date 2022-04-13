@@ -28,10 +28,6 @@ export const getDishes = async () => {
 };
 
 export const createDish = async (dishData) => {
-  const exists = await dishSchema.exists({ name: dishData.name });
-  if (exists) {
-    throw new DatabaseActionFail();
-  }
   await dishSchema.create(dishData);
 };
 
