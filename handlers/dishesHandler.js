@@ -1,5 +1,6 @@
 import dishSchema from "../models/dish.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
+import mongoose from "mongoose";
 
 export const deleteDish = async (idToDelete) => {
   const exists = await dishSchema.exists({ _id: idToDelete });
@@ -37,4 +38,33 @@ export const updateDish = async (dishId, data) => {
     throw new DatabaseActionFail();
   }
   await dishSchema.updateOne({ id: dishId }, data);
+};
+
+export const getDishById = async (dishId) => {
+  // const dish = await dishSchema.findOne({ _id: dishId });
+  // if (!dish) {
+  //   throw new DatabaseActionFail();
+  // }
+  // return dish;
+
+  const dish = await dishSchema.aggregate([
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(dishId),
+      },
+    },
+    {
+      $lookup: {
+        from: "restaurants",
+        localField: "restaurant",
+        foreignField: "_id",
+        as: "restaurant",
+      },
+    },
+    {
+      $unwind: "$restaurant", // this is to unwind the array
+    },
+  ]);
+  console.log(dish);
+  return dish;
 };

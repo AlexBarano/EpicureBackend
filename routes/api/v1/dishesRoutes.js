@@ -5,6 +5,7 @@ import * as dishesController from "../../../controllers/dishesController.js";
 
 router.get("/", dishesController.getDishes);
 router.post("/", dishesController.createDish);
+router.get("/:id", dishesController.getDishById);
 router.delete("/:id", dishesController.deleteDish);
 router.patch("/:id", dishesController.updateDish);
 
