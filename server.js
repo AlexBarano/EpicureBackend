@@ -18,6 +18,7 @@ const startServer = async () => {
     console.log("connected to the data base");
   } catch (error) {
     console.log("Didnt established connection to data base");
+    console.log(error);
   }
 
   app.listen(port);

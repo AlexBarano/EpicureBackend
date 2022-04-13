@@ -11,7 +11,7 @@ import * as dishesHandler from "../handlers/dishesHandler.js";
 
 export const getDishes = async (req, res) => {
   try {
-    const allDishes = dishesHandler.getDishes();
+    const allDishes = await dishesHandler.getDishes();
     res.status(200).json({ dishes: allDishes });
   } catch (error) {
     res.status(500).json({ msg: "Error getting all the dishes", error });
