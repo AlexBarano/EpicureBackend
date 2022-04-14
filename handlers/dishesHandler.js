@@ -6,7 +6,7 @@ export const deleteDish = async (idToDelete) => {
   if (!exists) {
     throw new DatabaseActionFail(`Dish with id: ${idToDelete} does not exists`);
   }
-  await dishSchema.findOneAndRemove({ _id: idToDelete });
+  await dishSchema.findByIdAndRemove(idToDelete);
 };
 
 export const getDishes = async () => {
@@ -38,11 +38,11 @@ export const updateDish = async (dishId, data) => {
   if (!exists) {
     throw new DatabaseActionFail(`Dish with id: ${dishId} does not exists`);
   }
-  await dishSchema.updateOne({ _id: dishId }, data);
+  await dishSchema.findByIdAndUpdate(dishId, data);
 };
 
 export const getDishById = async (dishId) => {
-  const dish = await dishSchema.findOne({ _id: dishId }).populate("restaurant");
+  const dish = await dishSchema.findById(dishId).populate("restaurant");
   if (!dish) {
     throw new DatabaseActionFail(`Dish with id: ${dishId} does not exists`);
   }

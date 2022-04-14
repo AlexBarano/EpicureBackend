@@ -13,7 +13,7 @@ export const deleteRestaurant = async (idToDelete) => {
       `Restaturant with id: ${idToDelete} does not exists`
     );
   }
-  await restaurantSchema.findOneAndRemove({ _id: idToDelete });
+  await restaurantSchema.findByIdAndRemove(idToDelete);
 };
 
 export const createRestaurant = async (restaurantData) => {
@@ -33,6 +33,6 @@ export const updateRestaurant = async (restaurantId, data) => {
       `Restaturant with id: ${restaurantId} does not exists`
     );
   }
-  await restaurantSchema.updateOne({ _id: restaurantId }, data);
+  await restaurantSchema.findByIdAndUpdate(restaurantId, data);
 };
 export const getPopularRestaurants = async () => {};

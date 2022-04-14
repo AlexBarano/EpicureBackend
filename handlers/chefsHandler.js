@@ -66,16 +66,19 @@ export const updateChef = async (chefId, chefData) => {
 };
 
 export const updateChefOfTheWeek = async (chefId) => {
+  // check if id exist
   const exists = await chefSchema.exists({ _id: chefId });
   if (!exists) {
     throw new DatabaseActionFail(
       `id: ${chefId} does not exists, did not update chef of the week`
     );
   }
+  // find curr chef of the week and update him, if no chef of the week, nothing happends
   await chefSchema.findOneAndUpdate(
     { isChefOfTheWeek: true },
     { isChefOfTheWeek: false }
   );
+  // find new chef by its id and update him
   await chefSchema.findByIdAndUpdate(chefId, { isChefOfTheWeek: true });
 };
 
