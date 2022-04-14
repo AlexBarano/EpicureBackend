@@ -57,3 +57,25 @@ export const updateRestaurant = async (req, res) => {
     res.status(500).json({ msg: "Error updating restaurant", error });
   }
 };
+
+export const updatePopularRestaurant = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid restaurant id`);
+    }
+    await restaurantsHandler.updatePopularRestaurant(id);
+    res.status(200).json({ msg: `updated popular restaurant` });
+  } catch (error) {
+    res.status(500).json({ msg: "Error updating popular restaurant", error });
+  }
+};
+
+export const getPopularRestaurants = async (req, res) => {
+  try {
+    const popularRestaurants = await restaurantsHandler.getPopularRestaurants();
+    res.status(200).json({ popularRestaurants });
+  } catch (error) {
+    res.status(500).json({ msg: "Error getting popular restaurant", error });
+  }
+};

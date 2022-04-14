@@ -27,12 +27,33 @@ export const createRestaurant = async (restaurantData) => {
 };
 
 export const updateRestaurant = async (restaurantId, data) => {
-  const exists = await restaurantSchema.exists({ _id: restaurantId });
-  if (!exists) {
+  const restaurant = await restaurantSchema.findById(restaurantId);
+  if (!restaurant) {
     throw new DatabaseActionFail(
       `Restaturant with id: ${restaurantId} does not exists`
     );
   }
-  await restaurantSchema.findByIdAndUpdate(restaurantId, data);
+  await restaurantSchema.findByIdAndUpdate(restaurantId, {
+    ...data,
+    isPopular: restaurant.isPopular,
+  });
 };
-export const getPopularRestaurants = async () => {};
+
+export const getPopularRestaurants = async () => {
+  const restaurants = await restaurantSchema.find({ isPopular: true });
+  return restaurants;
+};
+
+export const updatePopularRestaurant = async (restaurantId) => {
+  // check if id exist
+  const restaurant = await restaurantSchema.findById(restaurantId);
+  if (!restaurant) {
+    throw new DatabaseActionFail(
+      `id: ${restaurantId} does not exists, did not update popular restaurant`
+    );
+  }
+  // find find the new restaturant and update it
+  await restaurantSchema.findByIdAndUpdate(restaurantId, {
+    isPopular: !restaurant.isPopular,
+  });
+};
