@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 export const deleteDish = async (idToDelete) => {
   const exists = await dishSchema.exists({ _id: idToDelete });
   if (!exists) {
-    throw new DatabaseActionFail();
+    throw new DatabaseActionFail(`Dish with id: ${idToDelete} does not exists`);
   }
   await dishSchema.findOneAndRemove({ _id: idToDelete });
 };
@@ -35,18 +35,12 @@ export const createDish = async (dishData) => {
 export const updateDish = async (dishId, data) => {
   const exists = await dishSchema.exists({ _id: dishId });
   if (!exists) {
-    throw new DatabaseActionFail();
+    throw new DatabaseActionFail(`Dish with id: ${dishId} does not exists`);
   }
   await dishSchema.updateOne({ id: dishId }, data);
 };
 
 export const getDishById = async (dishId) => {
-  // const dish = await dishSchema.findOne({ _id: dishId });
-  // if (!dish) {
-  //   throw new DatabaseActionFail();
-  // }
-  // return dish;
-
   const dish = await dishSchema.aggregate([
     {
       $match: {
@@ -65,8 +59,5 @@ export const getDishById = async (dishId) => {
       $unwind: "$restaurant", // this is to unwind the array
     },
   ]);
-  // if (!dish) {
-  //   throw new DatabaseActionFail();
-  // }
   return dish;
 };

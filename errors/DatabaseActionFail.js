@@ -1,6 +1,6 @@
 export default class DatabaseActionFail extends Error {
-  constructor(message) {
+  constructor(message = "Database failure") {
     super(message);
-    this.name = "Database Error, didn't finish action";
+    this.name = message;
   }
 }
