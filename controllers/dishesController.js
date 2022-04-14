@@ -22,6 +22,9 @@ export const getDishes = async (req, res) => {
 export const createDish = async (req, res) => {
   try {
     const parsedData = req.body;
+    if (!parsedData) {
+      throw new BadRequestError("Please provide valid dish data");
+    }
     await dishesHandler.createDish(parsedData);
     res.status(201).json({ msg: parsedData });
   } catch (error) {
@@ -57,9 +60,12 @@ export const updateDish = async (req, res) => {
 
 export const getDishById = async (req, res) => {
   try {
-    const idOfDish = req.params.id;
-    const dish = await dishesHandler.getDishById(idOfDish);
-    res.status(200).json(dish);
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid dish id`);
+    }
+    const dish = await dishesHandler.getDishById(id);
+    res.status(200).json({ dish });
   } catch (error) {
     res.status(500).json({ msg: "Error getting dish", error });
   }

@@ -1,4 +1,5 @@
 import * as restaurantsHandler from "../handlers/restaurantsHandler.js";
+import BadRequestError from "../errors/BadRequestError.js";
 
 /*
   ==== fix in these functions: ====
@@ -21,6 +22,9 @@ export const getRestaurants = async (req, res) => {
 export const createRestaurant = async (req, res) => {
   try {
     const parsedData = req.body;
+    if (!parsedData) {
+      throw new BadRequestError("Please provide valid restaurant data");
+    }
     await restaurantsHandler.createRestaurant(parsedData);
     res.status(201).json({ msg: parsedData });
   } catch (error) {
