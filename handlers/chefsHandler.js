@@ -57,12 +57,16 @@ export const createChef = async (chefData) => {
   await chefSchema.create(chefData);
 };
 
+// here we make sure the isChefOfTheWeek does not chage in any way
 export const updateChef = async (chefId, chefData) => {
-  const exists = await chefSchema.exists({ _id: chefId });
-  if (!exists) {
+  const chef = await chefSchema.findById(chefId);
+  if (!chef) {
     throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
   }
-  await chefSchema.findByIdAndUpdate(chefId, chefData);
+  await chefSchema.findByIdAndUpdate(chefId, {
+    ...chefData,
+    isChefOfTheWeek: chef.isChefOfTheWeek,
+  });
 };
 
 export const updateChefOfTheWeek = async (chefId) => {
