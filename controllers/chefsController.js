@@ -19,6 +19,16 @@ export const getChefs = async (req, res) => {
   }
 };
 
+export const getChefById = async (req, res) => {
+  try {
+    const chefId = req.params.id;
+    const chef = await chefsHandler.getChefById(chefId);
+    res.status(200).json(chef);
+  } catch (error) {
+    res.status(500).json({ msg: "Error getting chef by its id", error });
+  }
+};
+
 export const createChef = async (req, res) => {
   try {
     const parsedData = req.body;

@@ -65,6 +65,8 @@ export const getDishById = async (dishId) => {
       $unwind: "$restaurant", // this is to unwind the array
     },
   ]);
-  console.log(dish);
+  // if (!dish) {
+  //   throw new DatabaseActionFail();
+  // }
   return dish;
 };

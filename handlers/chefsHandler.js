@@ -14,6 +14,10 @@ export const getChefs = async () => {
   return allChefs;
 };
 
+export const getChefById = async (chefId) => {
+  return await chefSchema.findOne({ _id: chefId });
+};
+
 export const createChef = async (chefData) => {
   const exists = await chefSchema.exists({ name: chefData.name });
   if (exists) {
