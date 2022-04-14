@@ -1,4 +1,5 @@
 import * as chefsHandler from "../handlers/chefsHandler.js";
+import BadRequestError from "../errors/BadRequestError.js";
 
 /*
   ==== fix in these functions: ====
@@ -21,9 +22,12 @@ export const getChefs = async (req, res) => {
 
 export const getChefById = async (req, res) => {
   try {
-    const chefId = req.params.id;
-    const chef = await chefsHandler.getChefById(chefId);
-    res.status(200).json(chef);
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid chef id`);
+    }
+    const chef = await chefsHandler.getChefById(id);
+    res.status(200).json({ chef });
   } catch (error) {
     res.status(500).json({ msg: "Error getting chef by its id", error });
   }
@@ -31,9 +35,12 @@ export const getChefById = async (req, res) => {
 
 export const createChef = async (req, res) => {
   try {
-    const parsedData = req.body;
-    await chefsHandler.createChef(parsedData);
-    res.status(201).json({ msg: parsedData });
+    const { name, image, description } = req.body;
+    if (!name || !image || !description) {
+      throw new BadRequestError(`Please provide valid chef values`);
+    }
+    await chefsHandler.createChef(name, image, description);
+    res.status(201).json({ msg: "Created new chef" });
   } catch (error) {
     res.status(500).json({ msg: "Error creating new chef", error });
   }
@@ -41,9 +48,12 @@ export const createChef = async (req, res) => {
 
 export const deleteChef = async (req, res) => {
   try {
-    const idToDelete = req.params.id;
-    await chefsHandler.deleteChef(idToDelete);
-    res.status(200).json({ msg: `Deleted chef: ${idToDelete}` });
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid chef id`);
+    }
+    await chefsHandler.deleteChef(id);
+    res.status(200).json({ msg: `Deleted chef: ${id}` });
   } catch (error) {
     res.status(500).json({ msg: "Error deleting chef", error });
   }
@@ -51,9 +61,13 @@ export const deleteChef = async (req, res) => {
 
 export const updateChef = async (req, res) => {
   try {
-    const idToUpdate = req.params.id;
-    await chefsHandler.updateChef(idToUpdate, req.body);
-    res.status(200).json({ msg: `updated chef: ${idToUpdate}` });
+    const { id } = req.params;
+    const { name, image, description } = req.body;
+    if (!name || !image || !description || !id) {
+      throw new BadRequestError(`Please provide valid chef values`);
+    }
+    await chefsHandler.updateChef(id, name, image, description);
+    res.status(200).json({ msg: `updated chef: ${id}` });
   } catch (error) {
     res.status(500).json({ msg: "Error updating chef", error });
   }

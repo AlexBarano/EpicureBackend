@@ -22,20 +22,18 @@ export const getChefById = async (chefId) => {
   return chef;
 };
 
-export const createChef = async (chefData) => {
-  const exists = await chefSchema.exists({ name: chefData.name });
+export const createChef = async (name, image, description) => {
+  const exists = await chefSchema.exists({ name });
   if (exists) {
-    throw new DatabaseActionFail(
-      `Chef with id: ${chefData.name} already exists`
-    );
+    throw new DatabaseActionFail(`Chef with id: ${name} already exists`);
   }
-  await chefSchema.create(chefData);
+  await chefSchema.create(name, image, description);
 };
 
-export const updateChef = async (chefId, data) => {
+export const updateChef = async (chefId, name, image, description) => {
   const exists = await chefSchema.exists({ _id: chefId });
   if (!exists) {
     throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
   }
-  await chefSchema.updateOne({ id: chefId }, data);
+  await chefSchema.updateOne({ id: chefId }, { name, image, description });
 };
