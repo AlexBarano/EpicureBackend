@@ -35,3 +35,4 @@ export const updateRestaurant = async (restaurantId, data) => {
   }
   await restaurantSchema.updateOne({ _id: restaurantId }, data);
 };
+export const getPopularRestaurants = async () => {};

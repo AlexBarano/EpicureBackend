@@ -13,7 +13,6 @@ import BadRequestError from "../errors/BadRequestError.js";
 export const getChefs = async (req, res) => {
   try {
     const allChefs = await chefsHandler.getChefs();
-    console.log(allChefs);
     res.status(200).json({ chefs: allChefs });
   } catch (error) {
     res.status(500).json({ msg: "Error getting all the chefs", error });

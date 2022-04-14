@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import chefSchema from "../models/chef.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 
@@ -10,12 +11,35 @@ export const deleteChef = async (idToDelete) => {
 };
 
 export const getChefs = async () => {
-  const allChefs = await chefSchema.find({});
+  const allChefs = await chefSchema.aggregate([
+    {
+      $lookup: {
+        from: "restaurants",
+        localField: "_id",
+        foreignField: "chef",
+        as: "restaurants",
+      },
+    },
+  ]);
   return allChefs;
 };
 
 export const getChefById = async (chefId) => {
-  const chef = await chefSchema.findOne({ _id: chefId });
+  const chef = await chefSchema.aggregate([
+    {
+      $lookup: {
+        from: "restaurants",
+        localField: "_id",
+        foreignField: "chef",
+        as: "restaurants",
+      },
+    },
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(chefId),
+      },
+    },
+  ]);
   if (!chef) {
     throw new DatabaseActionFail(`No chef found by id: ${chefId}`);
   }
