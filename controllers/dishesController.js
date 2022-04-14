@@ -1,4 +1,5 @@
 import * as dishesHandler from "../handlers/dishesHandler.js";
+import BadRequestError from "../errors/BadRequestError.js";
 
 /*
   ==== fix in these functions: ====
@@ -30,9 +31,12 @@ export const createDish = async (req, res) => {
 
 export const deleteDish = async (req, res) => {
   try {
-    const idToDelete = req.params.id;
-    await dishesHandler.deleteDish(idToDelete);
-    res.status(200).json({ msg: `Deleted dish: ${idToDelete}` });
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid dish id`);
+    }
+    await dishesHandler.deleteDish(id);
+    res.status(200).json({ msg: `Deleted dish: ${id}` });
   } catch (error) {
     res.status(500).json({ msg: "Error deleting dish", error });
   }
@@ -40,9 +44,12 @@ export const deleteDish = async (req, res) => {
 
 export const updateDish = async (req, res) => {
   try {
-    const idToUpdate = req.params.id;
-    await dishesHandler.updateDish(idToUpdate, req.body);
-    res.status(200).json({ msg: `updated dish: ${idToUpdate}` });
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid dish id`);
+    }
+    await dishesHandler.updateDish(id, req.body);
+    res.status(200).json({ msg: `updated dish: ${id}` });
   } catch (error) {
     res.status(500).json({ msg: "Error updating dish", error });
   }

@@ -30,9 +30,12 @@ export const createRestaurant = async (req, res) => {
 
 export const deleteRestaurant = async (req, res) => {
   try {
-    const idToDelete = req.params.id;
-    await restaurantsHandler.deleteRestaurant(idToDelete);
-    res.status(200).json({ msg: `Deleted restaurant: ${idToDelete}` });
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid restaurant id`);
+    }
+    await restaurantsHandler.deleteRestaurant(id);
+    res.status(200).json({ msg: `Deleted restaurant: ${id}` });
   } catch (error) {
     res.status(500).json({ msg: "Error deleting restaurant", error });
   }
@@ -40,9 +43,12 @@ export const deleteRestaurant = async (req, res) => {
 
 export const updateRestaurant = async (req, res) => {
   try {
-    const idToUpdate = req.params.id;
-    await restaurantsHandler.updateRestaurant(idToUpdate, req.body);
-    res.status(200).json({ msg: `updated restaurant: ${idToUpdate}` });
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid restaurant id`);
+    }
+    await restaurantsHandler.updateRestaurant(id, req.body);
+    res.status(200).json({ msg: `updated restaurant: ${id}` });
   } catch (error) {
     res.status(500).json({ msg: "Error updating restaurant", error });
   }
