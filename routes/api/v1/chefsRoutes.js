@@ -4,5 +4,10 @@ const router = express.Router();
 import * as chefsController from "../../../controllers/chefsController.js";
 
 router.get("/", chefsController.getChefs);
+router.get("/:id", chefsController.getChefById);
 
-export { router as chefsRouter };
+router.post("/", chefsController.createChef);
+router.delete("/:id", chefsController.deleteChef);
+router.patch("/:id", chefsController.updateChef);
+
+export default router;
