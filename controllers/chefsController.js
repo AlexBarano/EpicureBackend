@@ -35,11 +35,11 @@ export const getChefById = async (req, res) => {
 
 export const createChef = async (req, res) => {
   try {
-    const { name, image, description } = req.body;
-    if (!name || !image || !description) {
+    const chefData = req.body;
+    if (!chefData) {
       throw new BadRequestError(`Please provide valid chef values`);
     }
-    await chefsHandler.createChef(name, image, description);
+    await chefsHandler.createChef(chefData);
     res.status(201).json({ msg: "Created new chef" });
   } catch (error) {
     res.status(500).json({ msg: "Error creating new chef", error });
@@ -62,11 +62,11 @@ export const deleteChef = async (req, res) => {
 export const updateChef = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, image, description } = req.body;
-    if (!name || !image || !description || !id) {
+    const chefData = req.body;
+    if (!chefData || !id) {
       throw new BadRequestError(`Please provide valid chef values`);
     }
-    await chefsHandler.updateChef(id, name, image, description);
+    await chefsHandler.updateChef(id, chefData);
     res.status(200).json({ msg: `updated chef: ${id}` });
   } catch (error) {
     res.status(500).json({ msg: "Error updating chef", error });
