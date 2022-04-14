@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 import chefSchema from "../models/chef.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 
@@ -7,7 +8,7 @@ export const deleteChef = async (idToDelete) => {
   if (!exists) {
     throw new DatabaseActionFail(`No chef found by id: ${idToDelete}`);
   }
-  await chefSchema.findOneAndRemove({ _id: idToDelete });
+  await chefSchema.findByIdAndRemove(idToDelete);
 };
 
 export const getChefs = async () => {
@@ -61,5 +62,24 @@ export const updateChef = async (chefId, chefData) => {
   if (!exists) {
     throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
   }
-  await chefSchema.updateOne({ id: chefId }, chefData);
+  await chefSchema.findByIdAndUpdate(chefId, chefData);
+};
+
+export const updateChefOfTheWeek = async (chefId) => {
+  const exists = await chefSchema.exists({ _id: chefId });
+  if (!exists) {
+    throw new DatabaseActionFail(
+      `id: ${chefId} does not exists, did not update chef of the week`
+    );
+  }
+  await chefSchema.findOneAndUpdate(
+    { isChefOfTheWeek: true },
+    { isChefOfTheWeek: false }
+  );
+  await chefSchema.findByIdAndUpdate(chefId, { isChefOfTheWeek: true });
+};
+
+export const getChefOfTheWeek = async () => {
+  const chef = await chefSchema.findOne({ isChefOfTheWeek: true });
+  return chef;
 };
