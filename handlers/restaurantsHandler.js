@@ -61,7 +61,7 @@ export const updatePopularRestaurant = async (restaurantId) => {
 export const getSignatureDish = async (restaurantId) => {
   const restaurant = await restaurantSchema
     .findById(restaurantId)
-    .populate("dish");
+    .populate("signatureDish");
   if (!restaurant) {
     throw new DatabaseActionFail(`Restaurant doesnt have any siganture dish`);
   }
