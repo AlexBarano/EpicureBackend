@@ -33,5 +33,5 @@ export const updateRestaurant = async (restaurantId, data) => {
       `Restaturant with id: ${restaurantId} does not exists`
     );
   }
-  await restaurantSchema.updateOne({ id: restaurantId }, data);
+  await restaurantSchema.updateOne({ _id: restaurantId }, data);
 };

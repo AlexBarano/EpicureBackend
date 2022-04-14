@@ -38,7 +38,7 @@ export const updateDish = async (dishId, data) => {
   if (!exists) {
     throw new DatabaseActionFail(`Dish with id: ${dishId} does not exists`);
   }
-  await dishSchema.updateOne({ id: dishId }, data);
+  await dishSchema.updateOne({ _id: dishId }, data);
 };
 
 export const getDishById = async (dishId) => {
