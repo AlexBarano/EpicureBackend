@@ -8,7 +8,11 @@ const DishSchema = new Schema({
   price: { type: Number, min: 0, default: 0 },
   ingredients: { type: [String] },
   tags: { type: [String] },
-  Restaurant: { type: Schema.Types.ObjectId },
+  restaurant: {
+    type: Schema.Types.ObjectId,
+    required: [true, "Please provide the restaturant id"],
+    ref: "restaurant",
+  },
 });
 
 export default mongoose.model("dish", DishSchema);
