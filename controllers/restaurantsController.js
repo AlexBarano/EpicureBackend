@@ -79,3 +79,18 @@ export const getPopularRestaurants = async (req, res) => {
     res.status(500).json({ msg: "Error getting popular restaurant", error });
   }
 };
+
+export const getSignatureDish = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid restaurant id`);
+    }
+    const signatureDish = await restaurantsHandler.getSignatureDish(id);
+    res.status(200).json({ signatureDish });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ msg: "Error getting signature dish of restaurant", error });
+  }
+};

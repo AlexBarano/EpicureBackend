@@ -5,6 +5,7 @@ import * as restaurantsController from "../../../controllers/restaurantsControll
 
 router.get("/", restaurantsController.getRestaurants);
 router.get("/popular-restaurants", restaurantsController.getPopularRestaurants);
+router.get("/signature-dish", restaurantsController.getSignatureDish);
 router.post("/", restaurantsController.createRestaurant);
 router.delete("/:id", restaurantsController.deleteRestaurant);
 router.patch(

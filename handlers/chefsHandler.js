@@ -51,7 +51,7 @@ export const createChef = async (chefData) => {
   const exists = await chefSchema.exists({ name: chefData.name });
   if (exists) {
     throw new DatabaseActionFail(
-      `Chef with id: ${chefData.name} already exists`
+      `Chef with name: ${chefData.name} already exists`
     );
   }
   await chefSchema.create(chefData);

@@ -17,6 +17,7 @@ const RestaurantSchema = new Schema({
   signatureDish: {
     type: Schema.Types.ObjectId,
     default: null,
+    ref: "dish",
   },
 });
 

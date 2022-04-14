@@ -57,3 +57,13 @@ export const updatePopularRestaurant = async (restaurantId) => {
     isPopular: !restaurant.isPopular,
   });
 };
+
+export const getSignatureDish = async (restaurantId) => {
+  const restaurant = await restaurantSchema
+    .findById(restaurantId)
+    .populate("dish");
+  if (!restaurant) {
+    throw new DatabaseActionFail(`Restaurant doesnt have any siganture dish`);
+  }
+  return restaurant.signatureDish;
+};
