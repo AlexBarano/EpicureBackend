@@ -63,7 +63,7 @@ export const getSignatureDish = async (restaurantId) => {
     .findById(restaurantId)
     .populate("signatureDish");
   if (!restaurant) {
-    throw new DatabaseActionFail(`Restaurant doesnt have any siganture dish`);
+    throw new DatabaseActionFail(`Error getting signature dish`);
   }
   return restaurant.signatureDish;
 };
