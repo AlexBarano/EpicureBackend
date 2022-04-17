@@ -84,3 +84,15 @@ export const getChefOfTheWeek = async (req, res) => {
     res.status(500).json({ msg: "Error getting chef of the week", error });
   }
 };
+export const getChefsRestaurants = async (req, res) => {
+  try {
+    const { chefId } = req.params;
+    if (!chefId) {
+      throw new BadRequestError(`Please provide valid chef id`);
+    }
+    const restaurants = await chefsHandler.getChefsRestaurants(chefId);
+    res.status(200).json({ restaurants });
+  } catch (error) {
+    res.status(500).json({ msg: "Error getting chef of the week", error });
+  }
+};

@@ -5,6 +5,7 @@ import * as chefsController from "../../../controllers/chefsController.js";
 
 router.get("/", chefsController.getChefs);
 router.get("/chef-of-the-week", chefsController.getChefOfTheWeek);
+router.get("/restaurants/:chefId", chefsController.getChefsRestaurants);
 router.get("/:id", chefsController.getChefById);
 router.post("/", chefsController.createChef);
 router.delete("/:id", chefsController.deleteChef);

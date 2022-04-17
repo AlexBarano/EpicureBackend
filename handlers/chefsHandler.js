@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import chefSchema from "../models/chef.js";
+import restaurantSchema from "../models/restaurant.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 import { deleteRestaurant } from "./restaurantsHandler.js";
 
@@ -91,6 +92,14 @@ export const updateChef = async (chefId, chefData) => {
     ...chefData,
     isChefOfTheWeek: chef.isChefOfTheWeek,
   });
+};
+export const getChefsRestaurants = async (chefId) => {
+  const chef = await chefSchema.findById(chefId);
+  if (!chef) {
+    throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
+  }
+  const restaurants = await restaurantSchema.find({ chef: chefId });
+  return restaurants;
 };
 
 // export const updateChefOfTheWeek = async (chefId) => {
