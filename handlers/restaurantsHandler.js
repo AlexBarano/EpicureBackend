@@ -9,6 +9,11 @@ export const getRestaurants = async () => {
   return allRestaurants;
 };
 
+export const getRestaurantById = async (id) => {
+  const restaturant = await restaurantSchema.findById(id);
+  return restaturant;
+};
+
 export const deleteRestaurant = async (idToDelete) => {
   const exists = await restaurantSchema.exists({ _id: idToDelete });
   if (!exists) {
@@ -64,52 +69,52 @@ export const updateRestaurant = async (restaurantId, data) => {
   });
 };
 
-export const getPopularRestaurants = async () => {
-  const restaurants = await restaurantSchema.find({ isPopular: true });
-  return restaurants;
-};
+// export const getPopularRestaurants = async () => {
+//   const restaurants = await restaurantSchema.find({ isPopular: true });
+//   return restaurants;
+// };
 
-export const updatePopularRestaurant = async (restaurantId) => {
-  // check if id exist
-  const restaurant = await restaurantSchema.findById(restaurantId);
-  if (!restaurant) {
-    throw new DatabaseActionFail(
-      `id: ${restaurantId} does not exists, did not update popular restaurant`
-    );
-  }
-  // find find the new restaturant and update it
-  await restaurantSchema.findByIdAndUpdate(restaurantId, {
-    isPopular: !restaurant.isPopular,
-  });
-};
+// export const updatePopularRestaurant = async (restaurantId) => {
+//   // check if id exist
+//   const restaurant = await restaurantSchema.findById(restaurantId);
+//   if (!restaurant) {
+//     throw new DatabaseActionFail(
+//       `id: ${restaurantId} does not exists, did not update popular restaurant`
+//     );
+//   }
+//   // find find the new restaturant and update it
+//   await restaurantSchema.findByIdAndUpdate(restaurantId, {
+//     isPopular: !restaurant.isPopular,
+//   });
+// };
 
-export const getSignatureDish = async (restaurantId) => {
-  const restaurant = await restaurantSchema
-    .findById(restaurantId)
-    .populate("signatureDish");
-  if (!restaurant) {
-    throw new DatabaseActionFail(`Error getting signature dish`);
-  }
-  return restaurant.signatureDish;
-};
+// export const getSignatureDish = async (restaurantId) => {
+//   const restaurant = await restaurantSchema
+//     .findById(restaurantId)
+//     .populate("signatureDish");
+//   if (!restaurant) {
+//     throw new DatabaseActionFail(`Error getting signature dish`);
+//   }
+//   return restaurant.signatureDish;
+// };
 
-export const getRestaurantsOfChefId = async (chefId) => {
-  const restaurants = await restaurantSchema.find({
-    chef: new mongoose.Types.ObjectId(chefId),
-  });
-  if (!restaurants) {
-    throw new DatabaseActionFail(`Error getting chef's: ${chefId} restaurants`);
-  }
-  console.log(restaurants);
-  return restaurants;
-};
+// export const getRestaurantsOfChefId = async (chefId) => {
+//   const restaurants = await restaurantSchema.find({
+//     chef: new mongoose.Types.ObjectId(chefId),
+//   });
+//   if (!restaurants) {
+//     throw new DatabaseActionFail(`Error getting chef's: ${chefId} restaurants`);
+//   }
+//   console.log(restaurants);
+//   return restaurants;
+// };
 
-export const getAllSignatureDishes = async () => {
-  const restaurants = await getRestaurants();
-  const allSigDishes = restaurants.forEach(async (restaurant) => {
-    const sigDish = await getSignatureDish(restaurant._id);
-    return sigDish;
-  });
-  console.log(allSigDishes);
-  return allSigDishes;
-};
+// export const getAllSignatureDishes = async () => {
+//   const restaurants = await getRestaurants();
+//   const allSigDishes = restaurants.forEach(async (restaurant) => {
+//     const sigDish = await getSignatureDish(restaurant._id);
+//     return sigDish;
+//   });
+//   console.log(allSigDishes);
+//   return allSigDishes;
+// };

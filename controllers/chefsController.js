@@ -1,15 +1,6 @@
 import * as chefsHandler from "../handlers/chefsHandler.js";
 import BadRequestError from "../errors/BadRequestError.js";
 
-/*
-  ==== fix in these functions: ====
-  check if params exists
-  ****search before uploading
-  ****try catch with schema operations
-  ****status codes with good and bad operations 
-  ****add handlers here
-*/
-
 export const getChefs = async (req, res) => {
   try {
     const allChefs = await chefsHandler.getChefs();
@@ -72,18 +63,18 @@ export const updateChef = async (req, res) => {
   }
 };
 
-export const updateChefOfTheWeek = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!id) {
-      throw new BadRequestError(`Please provide valid chef id`);
-    }
-    await chefsHandler.updateChefOfTheWeek(id);
-    res.status(200).json({ msg: `updated chef of the week` });
-  } catch (error) {
-    res.status(500).json({ msg: "Error updating chef of the week", error });
-  }
-};
+// export const updateChefOfTheWeek = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     if (!id) {
+//       throw new BadRequestError(`Please provide valid chef id`);
+//     }
+//     await chefsHandler.updateChefOfTheWeek(id);
+//     res.status(200).json({ msg: `updated chef of the week` });
+//   } catch (error) {
+//     res.status(500).json({ msg: "Error updating chef of the week", error });
+//   }
+// };
 
 export const getChefOfTheWeek = async (req, res) => {
   try {
