@@ -34,12 +34,12 @@ export const createRestaurant = async (req, res) => {
 
 export const deleteRestaurant = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
+    const { restaurantId } = req.params;
+    if (!restaurantId) {
       throw new BadRequestError(`Please provide valid restaurant id`);
     }
-    await restaurantsHandler.deleteRestaurant(id);
-    res.status(200).json({ msg: `Deleted restaurant: ${id}` });
+    await restaurantsHandler.deleteRestaurant(restaurantId);
+    res.status(200).json({ msg: `Deleted restaurant: ${restaurantId}` });
   } catch (error) {
     res.status(500).json({ msg: "Error deleting restaurant", error });
   }
@@ -47,12 +47,13 @@ export const deleteRestaurant = async (req, res) => {
 
 export const updateRestaurant = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
+    const { restaurantId } = req.params;
+    const { restaurantData } = req.body;
+    if (!restaurantId) {
       throw new BadRequestError(`Please provide valid restaurant id`);
     }
-    await restaurantsHandler.updateRestaurant(id, req.body);
-    res.status(200).json({ msg: `updated restaurant: ${id}` });
+    await restaurantsHandler.updateRestaurant(restaurantId, restaurantData);
+    res.status(200).json({ msg: `updated restaurant: ${restaurantId}` });
   } catch (error) {
     res.status(500).json({ msg: "Error updating restaurant", error });
   }
@@ -60,12 +61,14 @@ export const updateRestaurant = async (req, res) => {
 
 export const updatePopularRestaurant = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
+    const { restaurantId } = req.params;
+    if (!restaurantId) {
       throw new BadRequestError(`Please provide valid restaurant id`);
     }
-    await restaurantsHandler.updatePopularRestaurant(id);
-    res.status(200).json({ msg: `updated popular restaurant` });
+    await restaurantsHandler.updatePopularRestaurant(restaurantId);
+    res
+      .status(200)
+      .json({ msg: `updated popular restaurant: ${restaurantId}` });
   } catch (error) {
     res.status(500).json({ msg: "Error updating popular restaurant", error });
   }
@@ -82,15 +85,39 @@ export const getPopularRestaurants = async (req, res) => {
 
 export const getSignatureDish = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
-      throw new BadRequestError(`Please provide valid restaurant id`);
+    const { dishId } = req.params;
+    if (!dishId) {
+      throw new BadRequestError(`Please provide valid dish id`);
     }
-    const signatureDish = await restaurantsHandler.getSignatureDish(id);
+    const signatureDish = await restaurantsHandler.getSignatureDish(dishId);
     res.status(200).json({ signatureDish });
   } catch (error) {
     res
       .status(500)
       .json({ msg: "Error getting signature dish of restaurant", error });
+  }
+};
+
+export const getSignatureDishes = async (req, res) => {
+  try {
+    const signatureDishes = await restaurantsHandler.getAllSignatureDishes();
+    res.status(200).json({ signatureDishes });
+  } catch (error) {
+    res.status(500).json({ msg: "Error getting signature dishes", error });
+  }
+};
+
+export const getRestaurantsOfChefId = async (req, res) => {
+  try {
+    const { chefIf } = req.params;
+    if (!chefIf) {
+      throw new BadRequestError(`Please provide valid chef id`);
+    }
+    const restaurants = await restaurantsHandler.getRestaurantsOfChefId(chefIf);
+    res.status(200).json({ restaurants });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ msg: `Error getting restaurants of chef: ${chefIf}`, error });
   }
 };

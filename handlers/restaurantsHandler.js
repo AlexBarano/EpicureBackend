@@ -92,3 +92,24 @@ export const getSignatureDish = async (restaurantId) => {
   }
   return restaurant.signatureDish;
 };
+
+export const getRestaurantsOfChefId = async (chefId) => {
+  const restaurants = await restaurantSchema.find({
+    chef: new mongoose.Types.ObjectId(chefId),
+  });
+  if (!restaurants) {
+    throw new DatabaseActionFail(`Error getting chef's: ${chefId} restaurants`);
+  }
+  console.log(restaurants);
+  return restaurants;
+};
+
+export const getAllSignatureDishes = async () => {
+  const restaurants = await getRestaurants();
+  const allSigDishes = restaurants.forEach(async (restaurant) => {
+    const sigDish = await getSignatureDish(restaurant._id);
+    return sigDish;
+  });
+  console.log(allSigDishes);
+  return allSigDishes;
+};

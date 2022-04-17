@@ -5,13 +5,15 @@ import * as restaurantsController from "../../../controllers/restaurantsControll
 
 router.get("/", restaurantsController.getRestaurants);
 router.get("/popular-restaurants", restaurantsController.getPopularRestaurants);
-router.get("/signature-dish/:id", restaurantsController.getSignatureDish);
+router.get("/signature-dishes", restaurantsController.getSignatureDishes);
+router.get("/signature-dishes/:dishId", restaurantsController.getSignatureDish);
+router.get("/:chefId", restaurantsController.getRestaurantsOfChefId);
 router.post("/", restaurantsController.createRestaurant);
-router.delete("/:id", restaurantsController.deleteRestaurant);
+router.delete("/:restaurantId", restaurantsController.deleteRestaurant);
 router.patch(
-  "/popular-restaurants/:id",
+  "/popular-restaurants/:restaurantId",
   restaurantsController.updatePopularRestaurant
 );
-router.patch("/:id", restaurantsController.updateRestaurant);
+router.patch("/:restaurantId", restaurantsController.updateRestaurant);
 
 export default router;
