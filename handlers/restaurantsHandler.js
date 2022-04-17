@@ -1,5 +1,8 @@
+import mongoose from "mongoose";
+
 import restaurantSchema from "../models/restaurant.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
+import { deleteDish } from "./dishesHandler.js";
 
 export const getRestaurants = async () => {
   const allRestaurants = await restaurantSchema.find({});
@@ -13,6 +16,28 @@ export const deleteRestaurant = async (idToDelete) => {
       `Restaturant with id: ${idToDelete} does not exists`
     );
   }
+  const allDishesToDeleteQuery = await restaurantSchema.aggregate([
+    {
+      $lookup: {
+        from: "dishes",
+        localField: "_id",
+        foreignField: "restaurant",
+        as: "dishes",
+      },
+    },
+    { $match: { _id: new mongoose.Types.ObjectId(idToDelete) } },
+    {
+      $project: {
+        _id: 0,
+        dishes: 1,
+      },
+    },
+  ]);
+  const allDishesToDelete = allDishesToDeleteQuery[0].dishes;
+
+  allDishesToDelete.forEach((dish) => {
+    deleteDish(dish._id);
+  });
   await restaurantSchema.findByIdAndRemove(idToDelete);
 };
 

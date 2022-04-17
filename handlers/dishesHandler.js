@@ -2,7 +2,7 @@ import dishSchema from "../models/dish.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 
 export const deleteDish = async (idToDelete) => {
-  const exists = await dishSchema.exists({ _id: idToDelete });
+  const exists = await dishSchema.exists({ _id: idToDelete }); // thisnis O(1) (hash)
   if (!exists) {
     throw new DatabaseActionFail(`Dish with id: ${idToDelete} does not exists`);
   }
