@@ -51,6 +51,10 @@ export const getChefs = async () => {
 };
 
 export const getChefById = async (chefId) => {
+  const exists = await chefSchema.exists({ _id: chefId });
+  if (!exists) {
+    throw new DatabaseActionFail(`No chef found by id: ${chefId}`);
+  }
   const chef = await chefSchema.aggregate([
     {
       $lookup: {
@@ -94,9 +98,9 @@ export const updateChef = async (chefId, chefData) => {
   });
 };
 export const getChefsRestaurants = async (chefId) => {
-  const chef = await chefSchema.findById(chefId);
-  if (!chef) {
-    throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
+  const exists = await chefSchema.exists({ _id: chefId });
+  if (!exists) {
+    throw new DatabaseActionFail(`No chef found by id: ${chefId}`);
   }
   const restaurants = await restaurantSchema.find({ chef: chefId });
   return restaurants;

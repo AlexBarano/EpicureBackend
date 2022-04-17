@@ -10,6 +10,10 @@ export const getRestaurants = async () => {
 };
 
 export const getRestaurantById = async (id) => {
+  const exists = await restaurantSchema.exists({ _id: id });
+  if (!exists) {
+    throw new DatabaseActionFail(`Restaturant with id: ${id} does not exists`);
+  }
   const restaturant = await restaurantSchema.findById(id);
   return restaturant;
 };

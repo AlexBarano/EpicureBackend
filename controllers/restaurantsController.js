@@ -19,9 +19,7 @@ export const getRestaurantById = async (req, res) => {
     const restaurant = await restaurantsHandler.getRestaurantById(restaurantId);
     res.status(200).json({ restaurant });
   } catch (error) {
-    res
-      .status(500)
-      .json({ msg: `Error getting restaurant: ${restaurantId}`, error });
+    res.status(500).json({ msg: `Error getting restaurant`, error });
   }
 };
 
