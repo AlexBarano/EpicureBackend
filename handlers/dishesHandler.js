@@ -13,20 +13,6 @@ export const getDishes = async () => {
   // this returned all the dishes in the db with the restaurant object
   const allDishes = await dishSchema.find({}).populate("restaurant");
   return allDishes;
-  // const allDishes = await dishSchema.aggregate([
-  //   {
-  //     $lookup: {
-  //       from: "restaurants",
-  //       localField: "restaurant",
-  //       foreignField: "_id",
-  //       as: "restaurant",
-  //     },
-  //   },
-  //   {
-  //     $unwind: "$restaurant", // this is to unwind the array
-  //   },
-  // ]);
-  // return allDishes;
 };
 
 export const createDish = async (dishData) => {

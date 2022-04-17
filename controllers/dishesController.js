@@ -1,15 +1,6 @@
 import * as dishesHandler from "../handlers/dishesHandler.js";
 import BadRequestError from "../errors/BadRequestError.js";
 
-/*
-  ==== fix in these functions: ====
-  check if params exists
-  ****search before uploading
-  ****try catch with schema operations
-  ****status codes with good and bad operations 
-  ****add handlers here
-*/
-
 export const getDishes = async (req, res) => {
   try {
     const allDishes = await dishesHandler.getDishes();
