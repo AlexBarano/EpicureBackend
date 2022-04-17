@@ -5,7 +5,10 @@ import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 import { deleteDish } from "./dishesHandler.js";
 
 export const getRestaurants = async () => {
-  const allRestaurants = await restaurantSchema.find({});
+  const allRestaurants = await restaurantSchema
+    .find({})
+    .populate("chef")
+    .populate("signatureDish");
   return allRestaurants;
 };
 
