@@ -35,8 +35,8 @@ export const deleteRestaurant = async (idToDelete) => {
   ]);
   const allDishesToDelete = allDishesToDeleteQuery[0].dishes;
 
-  allDishesToDelete.forEach((dish) => {
-    deleteDish(dish._id);
+  allDishesToDelete.forEach(async (dish) => {
+    await deleteDish(dish._id);
   });
   await restaurantSchema.findByIdAndRemove(idToDelete);
 };

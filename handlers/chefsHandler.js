@@ -2,12 +2,36 @@ import mongoose from "mongoose";
 
 import chefSchema from "../models/chef.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
+import { deleteRestaurant } from "./restaurantsHandler.js";
 
 export const deleteChef = async (idToDelete) => {
   const exists = await chefSchema.exists({ _id: idToDelete });
   if (!exists) {
     throw new DatabaseActionFail(`No chef found by id: ${idToDelete}`);
   }
+
+  const allRestaurantsToDeleteQuery = await chefSchema.aggregate([
+    {
+      $lookup: {
+        from: "restaurants",
+        localField: "_id",
+        foreignField: "chef",
+        as: "restaurants",
+      },
+    },
+    { $match: { _id: new mongoose.Types.ObjectId(idToDelete) } },
+    {
+      $project: {
+        _id: 0,
+        restaurants: 1,
+      },
+    },
+  ]);
+  const allRestaurantsToDelete = allRestaurantsToDeleteQuery[0].restaurants;
+  allRestaurantsToDelete.forEach(async (restaurant) => {
+    await deleteRestaurant(restaurant._id);
+  });
+
   await chefSchema.findByIdAndRemove(idToDelete);
 };
 
