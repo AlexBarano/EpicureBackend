@@ -2,11 +2,13 @@ import express from "express";
 const app = express();
 import dotenv from "dotenv";
 dotenv.config();
+import cors from "cors";
 
 import connect from "./db/connect.js";
 import apiRouter from "./routes/api/index.js";
 
 app.use(express.json());
+app.use(cors());
 app.use("/api", apiRouter);
 
 const port = process.env.PORT || 3000;
