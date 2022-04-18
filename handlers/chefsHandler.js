@@ -70,9 +70,6 @@ export const getChefById = async (chefId) => {
       },
     },
   ]);
-  if (!chef) {
-    throw new DatabaseActionFail(`No chef found by id: ${chefId}`);
-  }
   return chef;
 };
 
@@ -80,14 +77,17 @@ export const createChef = async (chefData) => {
   await chefSchema.create(chefData);
 };
 
-// here we make sure the isChefOfTheWeek does not chage in any way
 export const updateChef = async (chefId, chefData) => {
   const chef = await chefSchema.findById(chefId);
   if (!chef) {
     throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
   }
-  if (chefData.isChefOfTheWeek && chef._id !== chefId) {
-    await chefSchema.findOneAndUpdate({ isChefOfTheWeek: true }, false);
+  // check if it changes the isChefOfTheWeek property
+  if (chefData?.isChefOfTheWeek && chef._id !== chefId) {
+    await chefSchema.findOneAndUpdate(
+      { isChefOfTheWeek: true },
+      { isChefOfTheWeek: false }
+    );
   }
   await chefSchema.findByIdAndUpdate(chefId, chefData);
 };

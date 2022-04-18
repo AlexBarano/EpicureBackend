@@ -12,7 +12,7 @@ export const getDishes = async (req, res) => {
 export const getRestaurantsWithSignatureDishes = async (req, res) => {
   try {
     const sigDishes = await dishesHandler.getRestaurantsWithSignatureDishes();
-    res.status(200).json({ dishes: sigDishes });
+    res.status(200).json({ restaurants: sigDishes });
   } catch (error) {
     res.status(500).json({ msg: "Error getting all the dishes", error });
   }

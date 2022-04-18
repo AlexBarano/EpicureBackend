@@ -3,7 +3,7 @@ import restaurantSchema from "../models/restaurant.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 
 export const deleteDish = async (idToDelete) => {
-  const exists = await dishSchema.exists({ _id: idToDelete }); // thisnis O(1) (hash)
+  const exists = await dishSchema.exists({ _id: idToDelete }); // this is O(1) (hash)
   if (!exists) {
     throw new DatabaseActionFail(`Dish with id: ${idToDelete} does not exists`);
   }
@@ -17,9 +17,10 @@ export const getDishes = async () => {
 };
 
 export const getRestaurantsWithSignatureDishes = async () => {
-  // this returned all the dishes in the db with the restaurant object
-  const sigDishes = await restaurantSchema.find({}).populate("signatureDish");
-  return sigDishes;
+  const resWithSigDishes = await restaurantSchema
+    .find({})
+    .populate("signatureDish");
+  return resWithSigDishes;
 };
 
 export const createDish = async (dishData) => {

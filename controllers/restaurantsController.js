@@ -9,6 +9,14 @@ export const getRestaurants = async (req, res) => {
     res.status(500).json({ msg: "Error getting all the restaurants", error });
   }
 };
+export const getPopularRestaurants = async (req, res) => {
+  try {
+    const popularRestaurants = await restaurantsHandler.getPopularRestaurants();
+    res.status(200).json({ popularRestaurants: popularRestaurants });
+  } catch (error) {
+    res.status(500).json({ msg: "Error getting popular restaurants", error });
+  }
+};
 
 export const getRestaurantById = async (req, res) => {
   try {

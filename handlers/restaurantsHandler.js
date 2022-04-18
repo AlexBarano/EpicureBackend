@@ -9,6 +9,13 @@ export const getRestaurants = async () => {
   return allRestaurants;
 };
 
+export const getPopularRestaurants = async () => {
+  const popularRestaurants = await restaurantSchema
+    .find({ isPopular: true })
+    .populate("chef");
+  return popularRestaurants;
+};
+
 export const getRestaurantById = async (id) => {
   const exists = await restaurantSchema.exists({ _id: id });
   if (!exists) {
