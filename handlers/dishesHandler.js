@@ -18,7 +18,7 @@ export const getDishes = async () => {
 
 export const getRestaurantsWithSignatureDishes = async () => {
   const resWithSigDishes = await restaurantSchema
-    .find({})
+    .find({}, { signatureDish: 1, name: 1 })
     .populate("signatureDish");
   return resWithSigDishes;
 };

@@ -83,7 +83,7 @@ export const updateChef = async (chefId, chefData) => {
     throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
   }
   // check if it changes the isChefOfTheWeek property
-  if (chefData?.isChefOfTheWeek && chef._id !== chefId) {
+  if (chefData?.isChefOfTheWeek) {
     await chefSchema.findOneAndUpdate(
       { isChefOfTheWeek: true },
       { isChefOfTheWeek: false }
