@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-import restaurantSchema from "../models/restaurant.js";
-import DatabaseActionFail from "../errors/DatabaseActionFail.js";
-import { deleteDish } from "./dishesHandler.js";
+import restaurantSchema from "../models/restaurant";
+import DatabaseActionFail from "../errors/DatabaseActionFail";
+import { deleteDish } from "./dishesHandler";
 
 export const getRestaurants = async () => {
   const allRestaurants = await restaurantSchema.find({}).populate("chef");
@@ -16,7 +16,7 @@ export const getPopularRestaurants = async () => {
   return popularRestaurants;
 };
 
-export const getRestaurantById = async (id) => {
+export const getRestaurantById = async (id: string) => {
   const exists = await restaurantSchema.exists({ _id: id });
   if (!exists) {
     throw new DatabaseActionFail(`Restaturant with id: ${id} does not exists`);
@@ -25,7 +25,7 @@ export const getRestaurantById = async (id) => {
   return restaturant;
 };
 
-export const deleteRestaurant = async (idToDelete) => {
+export const deleteRestaurant = async (idToDelete: string) => {
   const exists = await restaurantSchema.exists({ _id: idToDelete });
   if (!exists) {
     throw new DatabaseActionFail(
@@ -51,17 +51,17 @@ export const deleteRestaurant = async (idToDelete) => {
   ]);
   const allDishesToDelete = allDishesToDeleteQuery[0].dishes;
 
-  allDishesToDelete.forEach(async (dish) => {
+  allDishesToDelete.forEach(async (dish: any) => {
     await deleteDish(dish._id);
   });
   await restaurantSchema.findByIdAndRemove(idToDelete);
 };
 
-export const createRestaurant = async (restaurantData) => {
+export const createRestaurant = async (restaurantData: any) => {
   await restaurantSchema.create(restaurantData);
 };
 
-export const updateRestaurant = async (restaurantId, data) => {
+export const updateRestaurant = async (restaurantId: string, data: any) => {
   const restaurant = await restaurantSchema.findById(restaurantId);
   if (!restaurant) {
     throw new DatabaseActionFail(

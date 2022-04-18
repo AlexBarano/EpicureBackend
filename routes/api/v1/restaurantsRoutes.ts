@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import * as restaurantsController from "../../../controllers/restaurantsController.js";
+import * as restaurantsController from "../../../controllers/restaurantsController";
 
 router.get("/", restaurantsController.getRestaurants);
 router.get("/popular-restaurants", restaurantsController.getPopularRestaurants);

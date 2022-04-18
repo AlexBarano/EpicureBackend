@@ -1,7 +1,9 @@
-import * as restaurantsHandler from "../handlers/restaurantsHandler.js";
-import BadRequestError from "../errors/BadRequestError.js";
+import { Request, Response } from "express";
 
-export const getRestaurants = async (req, res) => {
+import * as restaurantsHandler from "../handlers/restaurantsHandler";
+import BadRequestError from "../errors/BadRequestError";
+
+export const getRestaurants = async (req: Request, res: Response) => {
   try {
     const allRestaurants = await restaurantsHandler.getRestaurants();
     res.status(200).json({ restaurants: allRestaurants });
@@ -9,7 +11,7 @@ export const getRestaurants = async (req, res) => {
     res.status(500).json({ msg: "Error getting all the restaurants", error });
   }
 };
-export const getPopularRestaurants = async (req, res) => {
+export const getPopularRestaurants = async (req: Request, res: Response) => {
   try {
     const popularRestaurants = await restaurantsHandler.getPopularRestaurants();
     res.status(200).json({ popularRestaurants: popularRestaurants });
@@ -18,7 +20,7 @@ export const getPopularRestaurants = async (req, res) => {
   }
 };
 
-export const getRestaurantById = async (req, res) => {
+export const getRestaurantById = async (req: Request, res: Response) => {
   try {
     const { restaurantId } = req.params;
     if (!restaurantId) {
@@ -31,7 +33,7 @@ export const getRestaurantById = async (req, res) => {
   }
 };
 
-export const createRestaurant = async (req, res) => {
+export const createRestaurant = async (req: Request, res: Response) => {
   try {
     const parsedData = req.body;
     if (!parsedData) {
@@ -44,7 +46,7 @@ export const createRestaurant = async (req, res) => {
   }
 };
 
-export const deleteRestaurant = async (req, res) => {
+export const deleteRestaurant = async (req: Request, res: Response) => {
   try {
     const { restaurantId } = req.params;
     if (!restaurantId) {
@@ -57,7 +59,7 @@ export const deleteRestaurant = async (req, res) => {
   }
 };
 
-export const updateRestaurant = async (req, res) => {
+export const updateRestaurant = async (req: Request, res: Response) => {
   try {
     const { restaurantId } = req.params;
     const { restaurantData } = req.body;

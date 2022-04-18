@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-import chefSchema from "../models/chef.js";
-import restaurantSchema from "../models/restaurant.js";
-import DatabaseActionFail from "../errors/DatabaseActionFail.js";
-import { deleteRestaurant } from "./restaurantsHandler.js";
+import chefSchema from "../models/chef";
+import restaurantSchema from "../models/restaurant";
+import DatabaseActionFail from "../errors/DatabaseActionFail";
+import { deleteRestaurant } from "./restaurantsHandler";
 
-export const deleteChef = async (idToDelete) => {
+export const deleteChef = async (idToDelete: string) => {
   const exists = await chefSchema.exists({ _id: idToDelete });
   if (!exists) {
     throw new DatabaseActionFail(`No chef found by id: ${idToDelete}`);
@@ -29,7 +29,7 @@ export const deleteChef = async (idToDelete) => {
     },
   ]);
   const allRestaurantsToDelete = allRestaurantsToDeleteQuery[0].restaurants;
-  allRestaurantsToDelete.forEach(async (restaurant) => {
+  allRestaurantsToDelete.forEach(async (restaurant: any) => {
     await deleteRestaurant(restaurant._id);
   });
 
@@ -50,7 +50,7 @@ export const getChefs = async () => {
   return allChefs;
 };
 
-export const getChefById = async (chefId) => {
+export const getChefById = async (chefId: string) => {
   const exists = await chefSchema.exists({ _id: chefId });
   if (!exists) {
     throw new DatabaseActionFail(`No chef found by id: ${chefId}`);
@@ -73,11 +73,11 @@ export const getChefById = async (chefId) => {
   return chef;
 };
 
-export const createChef = async (chefData) => {
+export const createChef = async (chefData: any) => {
   await chefSchema.create(chefData);
 };
 
-export const updateChef = async (chefId, chefData) => {
+export const updateChef = async (chefId: string, chefData: any) => {
   const chef = await chefSchema.findById(chefId);
   if (!chef) {
     throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
@@ -91,7 +91,7 @@ export const updateChef = async (chefId, chefData) => {
   }
   await chefSchema.findByIdAndUpdate(chefId, chefData);
 };
-export const getChefsRestaurants = async (chefId) => {
+export const getChefsRestaurants = async (chefId: string) => {
   const exists = await chefSchema.exists({ _id: chefId });
   if (!exists) {
     throw new DatabaseActionFail(`No chef found by id: ${chefId}`);

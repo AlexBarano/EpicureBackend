@@ -1,7 +1,9 @@
-import * as chefsHandler from "../handlers/chefsHandler.js";
-import BadRequestError from "../errors/BadRequestError.js";
+import { Request, Response } from "express";
 
-export const getChefs = async (req, res) => {
+import * as chefsHandler from "../handlers/chefsHandler";
+import BadRequestError from "../errors/BadRequestError";
+
+export const getChefs = async (req: Request, res: Response) => {
   try {
     const allChefs = await chefsHandler.getChefs();
     res.status(200).json({ chefs: allChefs });
@@ -10,7 +12,7 @@ export const getChefs = async (req, res) => {
   }
 };
 
-export const getChefById = async (req, res) => {
+export const getChefById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     if (!id) {
@@ -23,7 +25,7 @@ export const getChefById = async (req, res) => {
   }
 };
 
-export const createChef = async (req, res) => {
+export const createChef = async (req: Request, res: Response) => {
   try {
     const chefData = req.body;
     if (!chefData) {
@@ -36,7 +38,7 @@ export const createChef = async (req, res) => {
   }
 };
 
-export const deleteChef = async (req, res) => {
+export const deleteChef = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     if (!id) {
@@ -49,7 +51,7 @@ export const deleteChef = async (req, res) => {
   }
 };
 
-export const updateChef = async (req, res) => {
+export const updateChef = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const chefData = req.body;
@@ -63,7 +65,7 @@ export const updateChef = async (req, res) => {
   }
 };
 
-export const getChefOfTheWeek = async (req, res) => {
+export const getChefOfTheWeek = async (req: Request, res: Response) => {
   try {
     const chef = await chefsHandler.getChefOfTheWeek();
     res.status(200).json({ chef });
@@ -71,7 +73,7 @@ export const getChefOfTheWeek = async (req, res) => {
     res.status(500).json({ msg: "Error getting chef of the week", error });
   }
 };
-export const getChefsRestaurants = async (req, res) => {
+export const getChefsRestaurants = async (req: Request, res: Response) => {
   try {
     const { chefId } = req.params;
     if (!chefId) {

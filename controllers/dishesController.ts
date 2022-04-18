@@ -1,7 +1,9 @@
-import * as dishesHandler from "../handlers/dishesHandler.js";
-import BadRequestError from "../errors/BadRequestError.js";
+import { Request, Response } from "express";
 
-export const getDishes = async (req, res) => {
+import * as dishesHandler from "../handlers/dishesHandler";
+import BadRequestError from "../errors/BadRequestError";
+
+export const getDishes = async (req: Request, res: Response) => {
   try {
     const allDishes = await dishesHandler.getDishes();
     res.status(200).json({ dishes: allDishes });
@@ -9,7 +11,10 @@ export const getDishes = async (req, res) => {
     res.status(500).json({ msg: "Error getting all the dishes", error });
   }
 };
-export const getRestaurantsWithSignatureDishes = async (req, res) => {
+export const getRestaurantsWithSignatureDishes = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const sigDishes = await dishesHandler.getRestaurantsWithSignatureDishes();
     res.status(200).json({ restaurants: sigDishes });
@@ -18,7 +23,7 @@ export const getRestaurantsWithSignatureDishes = async (req, res) => {
   }
 };
 
-export const createDish = async (req, res) => {
+export const createDish = async (req: Request, res: Response) => {
   try {
     const parsedData = req.body;
     if (!parsedData) {
@@ -31,7 +36,7 @@ export const createDish = async (req, res) => {
   }
 };
 
-export const deleteDish = async (req, res) => {
+export const deleteDish = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     if (!id) {
@@ -44,7 +49,7 @@ export const deleteDish = async (req, res) => {
   }
 };
 
-export const updateDish = async (req, res) => {
+export const updateDish = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     if (!id) {
@@ -57,7 +62,7 @@ export const updateDish = async (req, res) => {
   }
 };
 
-export const getDishById = async (req, res) => {
+export const getDishById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     if (!id) {

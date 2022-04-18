@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
 
-import chefsRouter from "./chefsRoutes.js";
-import restaurantsRouter from "./restaurantsRoutes.js";
-import dishesRouter from "./dishesRoutes.js";
+import chefsRouter from "./chefsRoutes";
+import restaurantsRouter from "./restaurantsRoutes";
+import dishesRouter from "./dishesRoutes";
 
 router.use("/chefs", chefsRouter);
 router.use("/dishes", dishesRouter);

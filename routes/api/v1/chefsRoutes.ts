@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import * as chefsController from "../../../controllers/chefsController.js";
+import * as chefsController from "../../../controllers/chefsController";
 
 router.get("/", chefsController.getChefs);
 router.get("/chef-of-the-week", chefsController.getChefOfTheWeek);

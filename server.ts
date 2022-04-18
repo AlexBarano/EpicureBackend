@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 
-import connect from "./db/connect.js";
-import apiRouter from "./routes/api/index.js";
+import connect from "./db/connect";
+import apiRouter from "./routes/api/index";
 
 app.use(express.json());
 app.use(cors());
@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
-    await connect(process.env.MONGODB_URL);
+    await connect(process.env.MONGODB_URL as string);
     console.log("connected to the data base");
   } catch (error) {
     console.log("Didnt established connection to data base");
