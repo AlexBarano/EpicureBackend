@@ -1,4 +1,5 @@
 import dishSchema from "../models/dish.js";
+import restaurantSchema from "../models/restaurant.js";
 import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 
 export const deleteDish = async (idToDelete) => {
@@ -13,6 +14,12 @@ export const getDishes = async () => {
   // this returned all the dishes in the db with the restaurant object
   const allDishes = await dishSchema.find({}).populate("restaurant");
   return allDishes;
+};
+
+export const getRestaurantsWithSignatureDishes = async () => {
+  // this returned all the dishes in the db with the restaurant object
+  const sigDishes = await restaurantSchema.find({}).populate("signatureDish");
+  return sigDishes;
 };
 
 export const createDish = async (dishData) => {

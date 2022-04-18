@@ -5,10 +5,7 @@ import DatabaseActionFail from "../errors/DatabaseActionFail.js";
 import { deleteDish } from "./dishesHandler.js";
 
 export const getRestaurants = async () => {
-  const allRestaurants = await restaurantSchema
-    .find({})
-    .populate("chef")
-    .populate("signatureDish");
+  const allRestaurants = await restaurantSchema.find({}).populate("chef");
   return allRestaurants;
 };
 
@@ -54,12 +51,6 @@ export const deleteRestaurant = async (idToDelete) => {
 };
 
 export const createRestaurant = async (restaurantData) => {
-  const exists = await restaurantSchema.exists({ name: restaurantData.name });
-  if (exists) {
-    throw new DatabaseActionFail(
-      `Restaturant with the name of: ${restaurantData.name} already exists`
-    );
-  }
   await restaurantSchema.create(restaurantData);
 };
 
@@ -70,8 +61,5 @@ export const updateRestaurant = async (restaurantId, data) => {
       `Restaturant with id: ${restaurantId} does not exists`
     );
   }
-  await restaurantSchema.findByIdAndUpdate(restaurantId, {
-    ...data,
-    isPopular: restaurant.isPopular,
-  });
+  await restaurantSchema.findByIdAndUpdate(restaurantId, data);
 };

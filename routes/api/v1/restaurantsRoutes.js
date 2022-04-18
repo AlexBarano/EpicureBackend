@@ -3,7 +3,6 @@ const router = express.Router();
 
 import * as restaurantsController from "../../../controllers/restaurantsController.js";
 
-// change to have very small number of end points
 router.get("/", restaurantsController.getRestaurants);
 router.get("/:restaurantId", restaurantsController.getRestaurantById);
 router.post("/", restaurantsController.createRestaurant);

@@ -77,12 +77,6 @@ export const getChefById = async (chefId) => {
 };
 
 export const createChef = async (chefData) => {
-  const exists = await chefSchema.exists({ name: chefData.name });
-  if (exists) {
-    throw new DatabaseActionFail(
-      `Chef with name: ${chefData.name} already exists`
-    );
-  }
   await chefSchema.create(chefData);
 };
 
@@ -92,10 +86,10 @@ export const updateChef = async (chefId, chefData) => {
   if (!chef) {
     throw new DatabaseActionFail(`Chef with id: ${chefId} does not exists`);
   }
-  await chefSchema.findByIdAndUpdate(chefId, {
-    ...chefData,
-    isChefOfTheWeek: chef.isChefOfTheWeek,
-  });
+  if (chefData.isChefOfTheWeek && chef._id !== chefId) {
+    await chefSchema.findOneAndUpdate({ isChefOfTheWeek: true }, false);
+  }
+  await chefSchema.findByIdAndUpdate(chefId, chefData);
 };
 export const getChefsRestaurants = async (chefId) => {
   const exists = await chefSchema.exists({ _id: chefId });
