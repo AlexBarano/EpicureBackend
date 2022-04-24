@@ -8,6 +8,7 @@ router.get(
   "/signature-dishes",
   dishesController.getRestaurantsWithSignatureDishes
 );
+router.get("/restaurant/:id", dishesController.getDishesOfRestaurant);
 router.get("/:id", dishesController.getDishById);
 router.post("/", dishesController.createDish);
 router.delete("/:id", dishesController.deleteDish);

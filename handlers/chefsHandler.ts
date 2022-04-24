@@ -74,6 +74,12 @@ export const getChefById = async (chefId: string) => {
 };
 
 export const createChef = async (chefData: any) => {
+  if (chefData?.isChefOfTheWeek) {
+    await chefSchema.findOneAndUpdate(
+      { isChefOfTheWeek: true },
+      { isChefOfTheWeek: false }
+    );
+  }
   await chefSchema.create(chefData);
 };
 

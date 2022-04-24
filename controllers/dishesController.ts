@@ -11,6 +11,18 @@ export const getDishes = async (req: Request, res: Response) => {
     res.status(500).json({ msg: "Error getting all the dishes", error });
   }
 };
+export const getDishesOfRestaurant = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      throw new BadRequestError(`Please provide valid restaurant id`);
+    }
+    const dishes = await dishesHandler.getDishesOfRestaurant(id);
+    res.status(200).json({ dishes });
+  } catch (error) {
+    res.status(500).json({ msg: "Error getting dishes of restaurant", error });
+  }
+};
 export const getRestaurantsWithSignatureDishes = async (
   req: Request,
   res: Response
@@ -55,6 +67,7 @@ export const updateDish = async (req: Request, res: Response) => {
     if (!id) {
       throw new BadRequestError(`Please provide valid dish id`);
     }
+    console.log(req.body);
     await dishesHandler.updateDish(id, req.body);
     res.status(200).json({ msg: `updated dish: ${id}` });
   } catch (error) {

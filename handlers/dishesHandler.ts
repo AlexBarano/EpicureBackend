@@ -15,6 +15,11 @@ export const getDishes = async () => {
   const allDishes = await dishSchema.find({}).populate("restaurant");
   return allDishes;
 };
+export const getDishesOfRestaurant = async (restaurantId: string) => {
+  // this returned all the dishes in the db with the restaurant object
+  const dishes = await dishSchema.find({ restaurant: restaurantId });
+  return dishes;
+};
 
 export const getRestaurantsWithSignatureDishes = async () => {
   const resWithSigDishes = await restaurantSchema
