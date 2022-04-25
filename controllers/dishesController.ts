@@ -67,7 +67,7 @@ export const updateDish = async (req: Request, res: Response) => {
     if (!id) {
       throw new BadRequestError(`Please provide valid dish id`);
     }
-    console.log(req.body);
+
     await dishesHandler.updateDish(id, req.body);
     res.status(200).json({ msg: `updated dish: ${id}` });
   } catch (error) {

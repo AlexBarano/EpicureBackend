@@ -63,7 +63,6 @@ export const updateRestaurant = async (req: Request, res: Response) => {
   try {
     const { restaurantId } = req.params;
     const restaurantData = req.body;
-    console.log(restaurantData);
     if (!restaurantId) {
       throw new BadRequestError(`Please provide valid restaurant id`);
     }
