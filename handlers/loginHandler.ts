@@ -18,13 +18,13 @@ export const login = async (
 
   //// compare password with hashed password else throw error
   if (!(await bcrypt.compare(password, hashedPassword))) {
-    throw new UserAuthFail("Password does not match");
+    throw new UserAuthFail("Please try again");
   }
   //// user is authenticated and can proceed to get the jwt token
   const accessToken = jwt.sign(
     { email },
     process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: "2m" }
+    { expiresIn: "10m" }
   );
   return accessToken;
 };

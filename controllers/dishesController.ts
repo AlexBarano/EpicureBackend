@@ -8,7 +8,7 @@ export const getDishes = async (req: Request, res: Response) => {
     const allDishes = await dishesHandler.getDishes();
     res.status(200).json({ dishes: allDishes });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting all the dishes", error });
+    res.status(400).json({ msg: "Error getting all the dishes", error });
   }
 };
 export const getDishesOfRestaurant = async (req: Request, res: Response) => {
@@ -20,7 +20,7 @@ export const getDishesOfRestaurant = async (req: Request, res: Response) => {
     const dishes = await dishesHandler.getDishesOfRestaurant(id);
     res.status(200).json({ dishes });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting dishes of restaurant", error });
+    res.status(400).json({ msg: "Error getting dishes of restaurant", error });
   }
 };
 export const getRestaurantsWithSignatureDishes = async (
@@ -31,7 +31,7 @@ export const getRestaurantsWithSignatureDishes = async (
     const sigDishes = await dishesHandler.getRestaurantsWithSignatureDishes();
     res.status(200).json({ restaurants: sigDishes });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting all the dishes", error });
+    res.status(400).json({ msg: "Error getting all the dishes", error });
   }
 };
 
@@ -44,7 +44,7 @@ export const createDish = async (req: Request, res: Response) => {
     await dishesHandler.createDish(parsedData);
     res.status(201).json({ msg: parsedData });
   } catch (error) {
-    res.status(500).json({ msg: "Error creating new dish", error });
+    res.status(400).json({ msg: "Error creating new dish", error });
   }
 };
 
@@ -57,7 +57,7 @@ export const deleteDish = async (req: Request, res: Response) => {
     await dishesHandler.deleteDish(id);
     res.status(200).json({ msg: `Deleted dish: ${id}` });
   } catch (error) {
-    res.status(500).json({ msg: "Error deleting dish", error });
+    res.status(400).json({ msg: "Error deleting dish", error });
   }
 };
 
@@ -71,7 +71,7 @@ export const updateDish = async (req: Request, res: Response) => {
     await dishesHandler.updateDish(id, req.body);
     res.status(200).json({ msg: `updated dish: ${id}` });
   } catch (error) {
-    res.status(500).json({ msg: "Error updating dish", error });
+    res.status(400).json({ msg: "Error updating dish", error });
   }
 };
 
@@ -84,6 +84,6 @@ export const getDishById = async (req: Request, res: Response) => {
     const dish = await dishesHandler.getDishById(id);
     res.status(200).json({ dish });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting dish", error });
+    res.status(400).json({ msg: "Error getting dish", error });
   }
 };

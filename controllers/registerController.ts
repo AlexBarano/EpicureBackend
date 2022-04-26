@@ -6,8 +6,8 @@ export const register = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     await registerHandler.register(email, password);
-    res.status(200).json({ msg: "Created new user!" });
+    res.status(201).json({ msg: "Created new user!" });
   } catch (error) {
-    res.status(500).json({ msg: "error registring new user", error });
+    res.status(400).json({ msg: "error registring new user", error });
   }
 };

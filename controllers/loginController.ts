@@ -11,6 +11,6 @@ export const login = async (req: Request, res: Response) => {
     accessToken = await loginHandler.login(email, password);
     res.status(200).json({ accessToken });
   } catch (error) {
-    res.status(500).json({ msg: "Error login in", error });
+    res.status(403).json({ msg: "Error login in", error });
   }
 };

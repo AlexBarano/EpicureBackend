@@ -8,7 +8,7 @@ export const getChefs = async (req: Request, res: Response) => {
     const allChefs = await chefsHandler.getChefs();
     res.status(200).json({ chefs: allChefs });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting all the chefs", error });
+    res.status(400).json({ msg: "Error getting all the chefs", error });
   }
 };
 
@@ -21,7 +21,7 @@ export const getChefById = async (req: Request, res: Response) => {
     const chef = await chefsHandler.getChefById(id);
     res.status(200).json({ chef });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting chef by its id", error });
+    res.status(400).json({ msg: "Error getting chef by its id", error });
   }
 };
 
@@ -34,7 +34,7 @@ export const createChef = async (req: Request, res: Response) => {
     await chefsHandler.createChef(chefData);
     res.status(201).json({ msg: "Created new chef" });
   } catch (error) {
-    res.status(500).json({ msg: "Error creating new chef", error });
+    res.status(400).json({ msg: "Error creating new chef", error });
   }
 };
 
@@ -47,7 +47,7 @@ export const deleteChef = async (req: Request, res: Response) => {
     await chefsHandler.deleteChef(id);
     res.status(200).json({ msg: `Deleted chef: ${id}` });
   } catch (error) {
-    res.status(500).json({ msg: "Error deleting chef", error });
+    res.status(400).json({ msg: "Error deleting chef", error });
   }
 };
 
@@ -61,7 +61,7 @@ export const updateChef = async (req: Request, res: Response) => {
     await chefsHandler.updateChef(id, chefData);
     res.status(200).json({ msg: `updated chef: ${id}` });
   } catch (error) {
-    res.status(500).json({ msg: "Error updating chef", error });
+    res.status(400).json({ msg: "Error updating chef", error });
   }
 };
 
@@ -70,7 +70,7 @@ export const getChefOfTheWeek = async (req: Request, res: Response) => {
     const chef = await chefsHandler.getChefOfTheWeek();
     res.status(200).json({ chef });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting chef of the week", error });
+    res.status(400).json({ msg: "Error getting chef of the week", error });
   }
 };
 export const getChefsRestaurants = async (req: Request, res: Response) => {
@@ -82,6 +82,6 @@ export const getChefsRestaurants = async (req: Request, res: Response) => {
     const restaurants = await chefsHandler.getChefsRestaurants(chefId);
     res.status(200).json({ restaurants });
   } catch (error) {
-    res.status(500).json({ msg: "Error getting chef of the week", error });
+    res.status(400).json({ msg: "Error getting chef of the week", error });
   }
 };
