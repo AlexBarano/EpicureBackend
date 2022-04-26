@@ -13,11 +13,11 @@ export const authenticateToken = (
   jwt.verify(
     accessToken,
     process.env.ACCESS_TOKEN_SECRET as string,
-    (err, username) => {
+    (err, email) => {
       if (err) {
         return res.sendStatus(403);
       }
-      req.body.username = username;
+      req.body.email = email;
       next();
     }
   );
