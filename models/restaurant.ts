@@ -10,6 +10,15 @@ const RestaurantSchema = new Schema({
     required: [true, "Please provide the chef"],
     ref: "chef",
   },
+  isPopular: {
+    type: Boolean,
+    default: false,
+  },
+  signatureDish: {
+    type: Schema.Types.ObjectId,
+    default: null,
+    ref: "dish",
+  },
 });
 
 export default mongoose.model("restaurant", RestaurantSchema);
