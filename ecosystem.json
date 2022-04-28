@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "epicure",
-      "script": "./server.js",
+      "script": "./server.ts",
       "env": {
         "NODE_ENV": "staging"
       }
